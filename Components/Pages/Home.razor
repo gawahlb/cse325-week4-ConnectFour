@@ -1,0 +1,89 @@
+﻿@page "/"
+@using System.Drawing
+<style>
+    .p1dd-content,
+    .p2dd-content,
+    .board-content {
+        display: none;
+    }
+
+    .p1dd-content a:hover,
+    .p2dd-content a:hover,
+    .board-content a:hover {
+        background-color: #ddd;
+    }
+
+    .p1dd:hover .p1dd-content,
+    .p2dd:hover .p2dd-content,
+    .board:hover .board-content {
+        display: block;
+    }
+
+    .p1dd:hover .p1ddbtn,
+    .p2dd:hover .p2ddbtn,
+    .board:hover .boardbtn {
+        background-color: yellow;
+    }
+</style>
+
+<PageTitle>Index</PageTitle>
+<div class="p1dd">
+    <button class="p1ddbtn">Player 1 Color</button>
+    <div class="p1dd-content">
+        <button @onclick='() => ChangePlayer1Color("Red")'>Red</button>
+        <button @onclick='() => ChangePlayer1Color("Blue")'>Blue</button>
+        <button @onclick='() => ChangePlayer1Color("Green")'>Green</button>
+        <button @onclick='() => ChangePlayer1Color("Purple")'>Purple</button>
+        <button @onclick='() => ChangePlayer1Color("Black")'>Black</button>
+    </div>
+</div>
+
+<div class="p2dd">
+    <button class="p2ddbtn">Player 2 Color</button>
+    <div class="p2dd-content">
+        <button @onclick='() => ChangePlayer2Color("Red")'>Red</button>
+        <button @onclick='() => ChangePlayer2Color("Blue")'>Blue</button>
+        <button @onclick='() => ChangePlayer2Color("Green")'>Green</button>
+        <button @onclick='() => ChangePlayer2Color("Purple")'>Purple</button>
+        <button @onclick='() => ChangePlayer2Color("Black")'>Black</button>
+    </div>
+</div>
+
+<div class="board">
+    <button class="boardbtn">Board Color</button>
+    <div class="board-content">
+        <button @onclick='() => ChangeBoardColor("Red")'>Red</button>
+        <button @onclick='() => ChangeBoardColor("Blue")'>Blue</button>
+        <button @onclick='() => ChangeBoardColor("Green")'>Green</button>
+        <button @onclick='() => ChangeBoardColor("Purple")'>Purple</button>
+        <button @onclick='() => ChangeBoardColor("Black")'>Black</button>
+    </div>
+</div>
+
+
+<Board @rendermode="InteractiveServer" BoardColor="@boardColor" Player1Color="@player1Color"
+    Player2Color="@player2Color" />
+
+@code {
+    private Color boardColor = Color.Yellow;
+    private Color player1Color = Color.Red;
+    private Color player2Color = Color.Blue;
+
+    private void ChangePlayer1Color(string color)
+    {
+        player1Color = Color.FromName(color);
+        StateHasChanged();
+    }
+
+    private void ChangePlayer2Color(string color)
+    {
+        player2Color = Color.FromName(color);
+        StateHasChanged();
+    }
+
+    private void ChangeBoardColor(string color)
+    {
+        boardColor = Color.FromName(color);
+        StateHasChanged();
+    }
+}
